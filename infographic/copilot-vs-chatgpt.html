@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>GitHub Copilot vs ChatGPT Infographic</title>
+<style>
+  :root {
+    --ink: #1a1f2e;
+    --muted: #5b6478;
+    --soft: #8b93a7;
+    --line: #e4e7ee;
+    --paper: #f7f8fb;
+    --card: #ffffff;
+    --chatgpt: #0f766e;
+    --chatgpt-soft: #ccfbf1;
+    --copilot: #1d4ed8;
+    --copilot-soft: #dbeafe;
+    --accent: #0f172a;
+    --ok: #15803d;
+    --warn-bg: #fff7ed;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: #e8ebf2;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .poster {
+    width: 1080px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 48px 52px 40px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .chip {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #eef1f7;
+    color: var(--muted);
+    border: 1px solid var(--line);
+  }
+  .chip.on {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  h1 {
+    font-size: 42px;
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    max-width: 900px;
+    margin-bottom: 12px;
+  }
+  .lede {
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 820px;
+    margin-bottom: 10px;
+  }
+  .source {
+    font-size: 12px;
+    color: var(--soft);
+    margin-bottom: 28px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 16px;
+  }
+  .stat .v {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat .l {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+  .stat.teal .v { color: var(--chatgpt); }
+  .stat.blue .v { color: var(--copilot); }
+  .stat.ok .v { color: var(--ok); }
+
+  .section {
+    margin-top: 28px;
+  }
+  h2 {
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .section-note {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.45;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 14px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+  }
+  .card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #eef1f7;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .badge.sig {
+    background: #ecfdf5;
+    color: var(--ok);
+  }
+
+  /* Preference bars */
+  .pref {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .bar-row { display: flex; flex-direction: column; gap: 6px; }
+  .bar-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .track {
+    height: 14px;
+    background: #eef1f7;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+  .fill.chatgpt { background: var(--chatgpt); width: 67.3%; }
+  .fill.copilot { background: var(--copilot); width: 32.7%; }
+
+  .donut-wrap {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .donut {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: conic-gradient(var(--chatgpt) 0 242deg, var(--copilot) 242deg 360deg);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .donut::after {
+    content: "107";
+    position: absolute;
+    inset: 28px;
+    background: var(--card);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 22px;
+  }
+  .legend { display: flex; flex-direction: column; gap: 10px; }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .dot.chatgpt { background: var(--chatgpt); }
+  .dot.copilot { background: var(--copilot); }
+
+  .big-find {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .find-copy {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  /* Time comparison */
+  .time-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .time-item .label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .time-track {
+    height: 28px;
+    background: #eef1f7;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .time-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .time-fill.chatgpt { width: 89.4%; background: var(--chatgpt); }
+  .time-fill.copilot { width: 100%; background: var(--copilot); }
+
+  /* Error stacked visual */
+  .err-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 8px;
+    align-items: end;
+    margin-top: 8px;
+  }
+  .err-head {
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .err-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    padding-bottom: 8px;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .seg {
+    border-radius: 8px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .seg.rare-c { background: #0d9488; height: 62px; }
+  .seg.occ-c { background: #14b8a6; height: 60px; }
+  .seg.freq-c { background: #99f6e4; color: var(--ink); height: 28px; }
+  .seg.rare-p { background: #2563eb; height: 28px; }
+  .seg.occ-p { background: #3b82f6; height: 40px; }
+  .seg.freq-p { background: #93c5fd; color: var(--ink); height: 36px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  th {
+    background: #eef1f7;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  .eq {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    background: #eef1f7;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+
+  .soft-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .soft {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .soft .kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--soft);
+    margin-bottom: 8px;
+  }
+  .soft .title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .soft.win {
+    background: var(--copilot-soft);
+    border-color: #93c5fd;
+  }
+
+  .takeaways {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .take {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px;
+  }
+  .take .v {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--ok);
+  }
+  .take.blue .v { color: var(--copilot); }
+  .take .l {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .callout {
+    background: #ecfeff;
+    border: 1px solid #99f6e4;
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .callout strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+  .callout p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .guide td:last-child {
+    font-weight: 700;
+  }
+  .tag-c { color: var(--chatgpt); }
+  .tag-p { color: var(--copilot); }
+  .tag-e { color: var(--ok); }
+
+  .footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 11px;
+    color: var(--soft);
+    line-height: 1.5;
+  }
+  .hr {
+    height: 1px;
+    background: var(--line);
+    margin: 26px 0 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="poster">
+    <div class="eyebrow">
+      <span class="chip on">Experimental study</span>
+      <span class="chip">Mixed methods</span>
+      <span class="chip">n = 107</span>
+      <span class="chip">IJCESEN 2025</span>
+    </div>
+
+    <h1>GitHub Copilot vs ChatGPT<br/>in web application development</h1>
+    <p class="lede">
+      CS students built the same web features (signup, sign-in, student catalog)
+      with one AI tool. Compared: speed, code quality, errors, learning impact, and soft skills.
+    </p>
+    <p class="source">
+      Nebiu Hyseni &amp; Deraku · Kadri Zeka Public University · IJCESEN Vol. 11 No. 2 (2025) · DOI 10.22399/ijcesen.1846
+    </p>
+
+    <div class="stats">
+      <div class="stat teal">
+        <div class="v">72</div>
+        <div class="l">Chose ChatGPT</div>
+      </div>
+      <div class="stat blue">
+        <div class="v">35</div>
+        <div class="l">Chose Copilot</div>
+      </div>
+      <div class="stat ok">
+        <div class="v">67.4</div>
+        <div class="l">ChatGPT avg minutes</div>
+      </div>
+      <div class="stat">
+        <div class="v">75.3</div>
+        <div class="l">Copilot avg minutes</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Who chose which tool</h2>
+      <p class="section-note">Self-selected. ChatGPT won on familiarity and easier setup; Copilot attracted students wanting something new.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Preference share</h3>
+          <div class="donut-wrap">
+            <div class="donut" aria-hidden="true"></div>
+            <div class="legend">
+              <div class="legend-item"><span class="dot chatgpt"></span> ChatGPT — 72 (67%)</div>
+              <div class="legend-item"><span class="dot copilot"></span> GitHub Copilot — 35 (33%)</div>
+              <div class="legend-item" style="color:var(--soft);font-size:12px;">Experiment cohort total</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>By study year</h3>
+          <div class="pref">
+            <div class="bar-row">
+              <div class="bar-meta"><span>2nd year · ChatGPT 42 / Copilot 23</span><span>65</span></div>
+              <div class="track"><div class="fill" style="width:64.6%;background:var(--chatgpt)"></div></div>
+            </div>
+            <div class="bar-row">
+              <div class="bar-meta"><span>3rd year · ChatGPT 30 / Copilot 12</span><span>42</span></div>
+              <div class="track"><div class="fill" style="width:71.4%;background:var(--chatgpt)"></div></div>
+            </div>
+            <p style="font-size:12px;color:var(--soft);margin-top:4px;">Teal share = ChatGPT within each year</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="section">
+      <h2>Three significant findings</h2>
+      <p class="section-note">Most pairwise differences were not significant. These three were.</p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Excellent experience <span class="badge sig">p = 0.011</span></h3>
+          <div class="big-find" style="color:var(--chatgpt)">74%</div>
+          <p class="find-copy">ChatGPT rated experience excellent (53/72) vs Copilot 49% (17/35).</p>
+        </div>
+        <div class="card">
+          <h3>Better for learning <span class="badge sig">p &lt; 0.001</span></h3>
+          <div class="big-find" style="color:var(--chatgpt)">90</div>
+          <p class="find-copy">Students named ChatGPT more helpful for learning. Only 9 named Copilot.</p>
+        </div>
+        <div class="card">
+          <h3>Peer collaboration <span class="badge sig">p = 0.023</span></h3>
+          <div class="big-find" style="color:var(--copilot)">Copilot</div>
+          <p class="find-copy">Only soft-skill area with a significant between-tool advantage for Copilot.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="grid-2">
+        <div class="card">
+          <h3>Task completion time</h3>
+          <div class="time-bars">
+            <div class="time-item">
+              <div class="label"><span>ChatGPT</span><span>67.35 min</span></div>
+              <div class="time-track"><div class="time-fill chatgpt">~8 min faster</div></div>
+            </div>
+            <div class="time-item">
+              <div class="label"><span>GitHub Copilot</span><span>75.34 min</span></div>
+              <div class="time-track"><div class="time-fill copilot">baseline</div></div>
+            </div>
+          </div>
+          <p class="find-copy" style="margin-top:12px;">Difference not statistically significant (p ≈ 0.09).</p>
+        </div>
+        <div class="card">
+          <h3>AI-generated code → errors</h3>
+          <div class="err-grid">
+            <div></div>
+            <div class="err-head">ChatGPT</div>
+            <div class="err-head">Copilot</div>
+            <div class="err-label">Rarely</div>
+            <div class="seg rare-c">31</div>
+            <div class="seg rare-p">9</div>
+            <div class="err-label">Occasionally</div>
+            <div class="seg occ-c">30</div>
+            <div class="seg occ-p">14</div>
+            <div class="err-label">Frequently</div>
+            <div class="seg freq-c">11</div>
+            <div class="seg freq-p">12</div>
+          </div>
+          <p class="find-copy" style="margin-top:12px;">Trend: ChatGPT fewer frequent issues (linear-by-linear p = 0.019).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="section">
+      <h2>Where the tools were equivalent</h2>
+      <p class="section-note">Neither tool clearly outperformed the other (all p &gt; 0.05).</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Measure</th>
+            <th style="text-align:right">ChatGPT</th>
+            <th style="text-align:right">Copilot</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Confident writing new code</td><td class="num">40 / 72</td><td class="num">17 / 35</td><td><span class="eq">No difference</span></td></tr>
+          <tr><td>Generated code had quality</td><td class="num">66 / 72</td><td class="num">28 / 35</td><td><span class="eq">No difference</span></td></tr>
+          <tr><td>Had to heavily fix AI code</td><td class="num">26 / 72</td><td class="num">19 / 35</td><td><span class="eq">No difference</span></td></tr>
+          <tr><td>Improved coding structure</td><td class="num">58 / 72</td><td class="num">26 / 35</td><td><span class="eq">No difference</span></td></tr>
+          <tr><td>Effective at fixing errors</td><td class="num">61 / 72</td><td class="num">25 / 35</td><td><span class="eq">No difference</span></td></tr>
+          <tr><td>Enhanced coding concepts</td><td class="num">57 / 72</td><td class="num">22 / 35</td><td><span class="eq">No difference</span></td></tr>
+          <tr><td>Easier on complex issues</td><td class="num">64 / 72</td><td class="num">28 / 35</td><td><span class="eq">No difference</span></td></tr>
+          <tr><td>Encouraged critical thinking</td><td class="num">60 / 72</td><td class="num">24 / 35</td><td><span class="eq">No difference</span></td></tr>
+          <tr><td>Affected adaptability</td><td class="num">65 / 72</td><td class="num">31 / 35</td><td><span class="eq">No difference</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Soft skills snapshot</h2>
+      <div class="soft-grid" style="margin-top:12px">
+        <div class="soft win">
+          <div class="kicker">Collaboration</div>
+          <div class="title">Advantage: Copilot</div>
+          <p class="find-copy">Only soft-skill area with a significant between-tool difference.</p>
+        </div>
+        <div class="soft">
+          <div class="kicker">Critical thinking</div>
+          <div class="title">Roughly equal</div>
+          <p class="find-copy">Both tools encouraged critical thinking for most students.</p>
+        </div>
+        <div class="soft">
+          <div class="kicker">Adaptability</div>
+          <div class="title">Roughly equal</div>
+          <p class="find-copy">Similar support adapting during the development process.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr"></div>
+
+    <div class="section">
+      <h2>Education takeaways</h2>
+      <div class="takeaways" style="margin-top:12px">
+        <div class="take">
+          <div class="v">87%</div>
+          <div class="l">Recommend AI in education (93 / 107)</div>
+        </div>
+        <div class="take blue">
+          <div class="v">91%</div>
+          <div class="l">Still need a professor (97 / 107)</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Curriculum guidance from the authors</strong>
+        <p>Treat AI as a supplement, not a replacement. Train students and faculty, keep educator guidance for prompts and critical review, require prior coding practice, and set ethical usage policies so tools support teamwork without shortcutting learning.</p>
+      </div>
+
+      <table class="guide">
+        <thead>
+          <tr><th>If your goal is…</th><th>Lean toward</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Explanations, learning support, professional development</td><td class="tag-c">ChatGPT</td></tr>
+          <tr><td>Fewer frequent AI-induced errors (trend)</td><td class="tag-c">ChatGPT</td></tr>
+          <tr><td>IDE suggestions and peer collaboration</td><td class="tag-p">GitHub Copilot</td></tr>
+          <tr><td>Code quality / critical thinking / adaptability</td><td class="tag-e">Either</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      Infographic summary of Nebiu Hyseni, L., &amp; Deraku, A. (2025). Comparative Analysis of GitHub Copilot and ChatGPT in Web Application Development: An Experimental Study. IJCESEN, 11(2), 3375–3398.
+      Percentages rounded. Significance claims follow the paper’s reported Chi-square / Fisher / linear-by-linear tests.
+    </div>
+  </div>
+</body>
+</html>
